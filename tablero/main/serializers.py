@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import usuario
 from django.contrib.auth import authenticate
+from rest_framework.validators import UniqueValidator
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -18,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
-	email = serializers.EmailField()
+	email = serializers.EmailField(validators=[UniqueValidator(queryset=usuario.objects.all())])
 	first_name = serializers.CharField()
 	last_name = serializers.CharField()
 	foto = serializers.ImageField(required=False, max_length=None, allow_empty_file=True, use_url=True)
