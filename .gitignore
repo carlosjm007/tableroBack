@@ -105,3 +105,6 @@ venv.bak/
 
 # Fotos de los usuarios
 foto_usuario/
+
+#Settings
+settings.py
