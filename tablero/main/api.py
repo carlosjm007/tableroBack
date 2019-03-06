@@ -38,4 +38,4 @@ class UserAPI(generics.RetrieveAPIView):
 	serializer_class = UserSerializer
 
 	def get_object(self):
-		return usuario.objects.get(id=self.request.user.id)
+		return self.request.user

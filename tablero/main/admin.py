@@ -4,4 +4,4 @@ from .models import *
 
 @admin.register(usuario)
 class UsuarioAdmin(admin.ModelAdmin):
-    pass
+	pass
