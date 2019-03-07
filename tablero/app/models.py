@@ -32,6 +32,12 @@ class idea(models.Model):
 	actualizado = models.DateTimeField(auto_now=True)
 	creado = models.DateTimeField(auto_now_add=True)
 
+	def save(self, *args, **kwargs):
+		self.aprobado = False
+		if (self.usuario == self.tablero.usuario):
+			self.aprobado = True
+		super(idea, self).save(*args, **kwargs)
+
 	class Meta:
 		verbose_name = "Idea"
 		verbose_name_plural = "Ideas"
