@@ -108,3 +108,5 @@ foto_usuario/
 
 #Settings
 settings.py
+
+node_modules/
