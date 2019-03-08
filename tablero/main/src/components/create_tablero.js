@@ -8,7 +8,8 @@ class CreateTablero extends Component{
 	state = {
 		usuario: this.props.user.id,
 		estado: "PR",
-		nombre: ""
+		nombre: "",
+		errors:{}
 	};
 	onChange = event => {
 		const target = event.target;
@@ -25,13 +26,19 @@ class CreateTablero extends Component{
 	}
 	onSubmit = async (e) => {
 		e.preventDefault();
-		const {data1, status1} = await Api.create_tablero(this.props.token, this.state);
-
-		const {data, status} = await Api.tableros_list(this.props.token, true);
-		this.props.update(data);
+		var {data, status} = await Api.create_tablero(this.props.token, this.state);
+		console.log(status);
+		if(status == 400){
+			this.setState({errors: data});
+			return null;
+		}else if(status == 201){
+			const {data, status} = await Api.tableros_list(this.props.token, true);
+			console.log(data);
+			this.props.update(data);
+		}
 	};
 	render(){
-		const { usuario, estado, nombre } = this.state;
+		const { usuario, estado, nombre, errors } = this.state;
 		return(
 			<div className="Tablero">
 				<form onSubmit={this.onSubmit}>
@@ -44,6 +51,14 @@ class CreateTablero extends Component{
 								onChange={this.onChange}
 								value={nombre}
 							/>
+							{
+								this.state.errors.nombre != undefined ? (
+									this.state.errors.nombre.map((item, index) => {
+										return <h4 key={index}>{item}</h4>
+									})
+							) : (
+								<h4 className="text-center"></h4>
+							)}
 						</label>
 					</div>
 					<div className="form-group">

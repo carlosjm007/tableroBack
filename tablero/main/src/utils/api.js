@@ -91,7 +91,8 @@ class Api{
 				}),
 				body: formData,
 			});
-		return {status: query.status};
+		const data = await query.json();
+		return {data: data, status: query.status};
 	}
 
 	async create_idea(token, state){
