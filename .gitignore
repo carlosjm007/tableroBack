@@ -110,4 +110,4 @@ foto_usuario/
 settings.py
 
 node_modules/
-main/static/main/main.js
+static/main/main.js
