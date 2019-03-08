@@ -6,16 +6,19 @@ from django.templatetags.tz import localtime
 
 class IdeaSerializer(serializers.ModelSerializer):
 	usuario = serializers.SerializerMethodField('TraeUsuario')
+	usuario_id = serializers.SerializerMethodField('TraeUsuarioId')
 	tablero = serializers.SerializerMethodField('TraeTablero')
 	def TraeUsuario(self, objeto):
 		return "%s %s" % (objeto.usuario.first_name, objeto.usuario.last_name)
+	def TraeUsuarioId(self, objeto):
+		return objeto.usuario.id
 
 	def TraeTablero(self, objeto):
 		return objeto.tablero.id
 
 	class Meta:
 		model = idea
-		fields = ('id', 'usuario', 'tablero', 'aprobado', 'contenido')
+		fields = ('id', 'usuario', 'tablero', 'aprobado', 'contenido', 'usuario_id')
 
 class TableroSerializer(serializers.ModelSerializer):
 	usuario = serializers.SerializerMethodField('TraeUsuario')
@@ -38,3 +41,9 @@ class IdeaCRUDSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = idea
 		fields = ('id', 'usuario', 'tablero', 'aprobado', 'contenido')
+
+class TableroCRUDSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = tablero
+		fields = ('id', 'usuario', 'estado', 'nombre')

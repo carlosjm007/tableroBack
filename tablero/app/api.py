@@ -16,10 +16,10 @@ class TableroList(generics.ListCreateAPIView):
 	]
 
 	def list(self, request, *args, **kwargs):
-		if self.request.GET.get("own")=="True":
-			queryset = tablero.objects.filter(usuario = self.request.user)
+		if self.request.GET.get("own")=="true":
+			queryset = tablero.objects.filter(usuario = self.request.user).order_by("-actualizado")
 		else:
-			queryset = tablero.objects.filter(~Q(usuario = self.request.user))
+			queryset = tablero.objects.filter(~Q(usuario = self.request.user), estado="PU").order_by("-actualizado")
 		serializer = TableroSerializer(queryset, many=True)
 		return Response(serializer.data)
 
@@ -68,3 +68,21 @@ class IdeaDetail(APIView):
 		snippet = self.get_object(pk)
 		snippet.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TableroCRUD(APIView):
+	permission_classes = [
+		permissions.IsAuthenticated,
+	]
+	def get(self, request, format=None):
+		data = idea.objects.all()
+		serializer = TableroCRUDSerializer(data, many=True)
+		return Response(serializer.data)
+
+	def post(self, request, format=None):
+		data = request.data
+		#data["usuario"] = request.user.id
+		serializer = TableroCRUDSerializer(data=data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

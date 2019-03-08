@@ -4,6 +4,8 @@ import Api from "../utils/api";
 import { connect } from 'react-redux';
 import Login from "./login";
 import Logout from "./logout";
+import MisTableros from "./mis_tableros";
+import OtrosTableros from "./otros_tableros";
 
 class Auth extends Component{
 
@@ -11,7 +13,23 @@ class Auth extends Component{
 		if(this.props.token == undefined){
 			return <Login></Login>;
 		}
-		return <Logout></Logout>;
+		return(
+			<div className="container">
+				<div className="row">
+					<Logout></Logout>
+				</div>
+				<div className="row">
+					<div className="col">
+						<h3>Mis tableros</h3>
+						<MisTableros></MisTableros>
+					</div>
+					<div className="col">
+						<h3>Otros tableros</h3>
+						<OtrosTableros></OtrosTableros>
+					</div>
+				</div>
+			</div>
+		);
 	}
 };
 

@@ -1,0 +1,17 @@
+.Tablero {
+	padding: 10px;
+	border: 1px solid #4CAF50;
+	border-radius: 5px;
+}
+
+.Nombre {
+	display:inline-block;
+	margin-right:10px;
+	width:100px;
+}
+
+.Autor {
+	display:inline-block;
+	width:150px;
+	align-items: right;
+}

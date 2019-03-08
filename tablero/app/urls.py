@@ -7,6 +7,7 @@ urlpatterns = [
 	path('list/', TableroList.as_view(), name='tablero-list'),
     path('idea/', IdeaList.as_view()),
     path('idea/<int:pk>/', IdeaDetail.as_view()),
+    path('tablero/', TableroCRUD.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

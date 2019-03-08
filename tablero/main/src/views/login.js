@@ -50,7 +50,7 @@ class Login extends Component{
 						<h2 className="text-center">Login</h2>
 						<form onSubmit={this.onSubmit}>
 							<div className="form-group">
-								<label>Username</label>
+								<label>Email</label>
 								<input
 									type="email"
 									className="form-control"
